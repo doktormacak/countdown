@@ -6,7 +6,6 @@ import '../repeat_config/repeat_config.dart';
 
 part 'countdown_event.freezed.dart';
 
-// The main CountdownEvent model
 @freezed
 class CountdownEvent with _$CountdownEvent {
   const factory CountdownEvent({
