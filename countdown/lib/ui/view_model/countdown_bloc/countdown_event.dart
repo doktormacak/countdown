@@ -20,4 +20,6 @@ sealed class CountdownBlocEvent with _$CountdownBlocEvent {
   const factory CountdownBlocEvent.eventDeleted({
     required CountdownEvent event,
   }) = CountdownBlocEventDeleted;
+
+  const factory CountdownBlocEvent.updatedTimers() = UpdatedTimers;
 }

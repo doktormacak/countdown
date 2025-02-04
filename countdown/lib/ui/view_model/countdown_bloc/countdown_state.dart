@@ -8,5 +8,6 @@ part 'countdown_state.freezed.dart';
 class CountdownState with _$CountdownState {
   const factory CountdownState({
     @Default([]) List<CountdownEvent> events,
+    DateTime? lastUpdated,
   }) = _CountdownState;
 }

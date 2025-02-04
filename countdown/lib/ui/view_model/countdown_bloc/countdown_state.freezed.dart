@@ -17,6 +17,7 @@ final _privateConstructorUsedError = UnsupportedError(
 /// @nodoc
 mixin _$CountdownState {
   List<CountdownEvent> get events => throw _privateConstructorUsedError;
+  DateTime? get lastUpdated => throw _privateConstructorUsedError;
 
   /// Create a copy of CountdownState
   /// with the given fields replaced by the non-null parameter values.
@@ -31,7 +32,7 @@ abstract class $CountdownStateCopyWith<$Res> {
           CountdownState value, $Res Function(CountdownState) then) =
       _$CountdownStateCopyWithImpl<$Res, CountdownState>;
   @useResult
-  $Res call({List<CountdownEvent> events});
+  $Res call({List<CountdownEvent> events, DateTime? lastUpdated});
 }
 
 /// @nodoc
@@ -50,12 +51,17 @@ class _$CountdownStateCopyWithImpl<$Res, $Val extends CountdownState>
   @override
   $Res call({
     Object? events = null,
+    Object? lastUpdated = freezed,
   }) {
     return _then(_value.copyWith(
       events: null == events
           ? _value.events
           : events // ignore: cast_nullable_to_non_nullable
               as List<CountdownEvent>,
+      lastUpdated: freezed == lastUpdated
+          ? _value.lastUpdated
+          : lastUpdated // ignore: cast_nullable_to_non_nullable
+              as DateTime?,
     ) as $Val);
   }
 }
@@ -68,7 +74,7 @@ abstract class _$$CountdownStateImplCopyWith<$Res>
       __$$CountdownStateImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({List<CountdownEvent> events});
+  $Res call({List<CountdownEvent> events, DateTime? lastUpdated});
 }
 
 /// @nodoc
@@ -85,12 +91,17 @@ class __$$CountdownStateImplCopyWithImpl<$Res>
   @override
   $Res call({
     Object? events = null,
+    Object? lastUpdated = freezed,
   }) {
     return _then(_$CountdownStateImpl(
       events: null == events
           ? _value._events
           : events // ignore: cast_nullable_to_non_nullable
               as List<CountdownEvent>,
+      lastUpdated: freezed == lastUpdated
+          ? _value.lastUpdated
+          : lastUpdated // ignore: cast_nullable_to_non_nullable
+              as DateTime?,
     ));
   }
 }
@@ -98,7 +109,8 @@ class __$$CountdownStateImplCopyWithImpl<$Res>
 /// @nodoc
 
 class _$CountdownStateImpl implements _CountdownState {
-  const _$CountdownStateImpl({final List<CountdownEvent> events = const []})
+  const _$CountdownStateImpl(
+      {final List<CountdownEvent> events = const [], this.lastUpdated})
       : _events = events;
 
   final List<CountdownEvent> _events;
@@ -111,8 +123,11 @@ class _$CountdownStateImpl implements _CountdownState {
   }
 
   @override
+  final DateTime? lastUpdated;
+
+  @override
   String toString() {
-    return 'CountdownState(events: $events)';
+    return 'CountdownState(events: $events, lastUpdated: $lastUpdated)';
   }
 
   @override
@@ -120,12 +135,14 @@ class _$CountdownStateImpl implements _CountdownState {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$CountdownStateImpl &&
-            const DeepCollectionEquality().equals(other._events, _events));
+            const DeepCollectionEquality().equals(other._events, _events) &&
+            (identical(other.lastUpdated, lastUpdated) ||
+                other.lastUpdated == lastUpdated));
   }
 
   @override
-  int get hashCode =>
-      Object.hash(runtimeType, const DeepCollectionEquality().hash(_events));
+  int get hashCode => Object.hash(
+      runtimeType, const DeepCollectionEquality().hash(_events), lastUpdated);
 
   /// Create a copy of CountdownState
   /// with the given fields replaced by the non-null parameter values.
@@ -138,11 +155,14 @@ class _$CountdownStateImpl implements _CountdownState {
 }
 
 abstract class _CountdownState implements CountdownState {
-  const factory _CountdownState({final List<CountdownEvent> events}) =
-      _$CountdownStateImpl;
+  const factory _CountdownState(
+      {final List<CountdownEvent> events,
+      final DateTime? lastUpdated}) = _$CountdownStateImpl;
 
   @override
   List<CountdownEvent> get events;
+  @override
+  DateTime? get lastUpdated;
 
   /// Create a copy of CountdownState
   /// with the given fields replaced by the non-null parameter values.

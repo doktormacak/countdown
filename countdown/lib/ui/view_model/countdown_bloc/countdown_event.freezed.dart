@@ -22,6 +22,7 @@ mixin _$CountdownBlocEvent {
     required TResult Function(CountdownEvent event) eventCreated,
     required TResult Function(CountdownEvent event) eventEdited,
     required TResult Function(CountdownEvent event) eventDeleted,
+    required TResult Function() updatedTimers,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -30,6 +31,7 @@ mixin _$CountdownBlocEvent {
     TResult? Function(CountdownEvent event)? eventCreated,
     TResult? Function(CountdownEvent event)? eventEdited,
     TResult? Function(CountdownEvent event)? eventDeleted,
+    TResult? Function()? updatedTimers,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -38,6 +40,7 @@ mixin _$CountdownBlocEvent {
     TResult Function(CountdownEvent event)? eventCreated,
     TResult Function(CountdownEvent event)? eventEdited,
     TResult Function(CountdownEvent event)? eventDeleted,
+    TResult Function()? updatedTimers,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -47,6 +50,7 @@ mixin _$CountdownBlocEvent {
     required TResult Function(CountdownBlocEventCreated value) eventCreated,
     required TResult Function(CountdownBlocEventEdited value) eventEdited,
     required TResult Function(CountdownBlocEventDeleted value) eventDeleted,
+    required TResult Function(UpdatedTimers value) updatedTimers,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -55,6 +59,7 @@ mixin _$CountdownBlocEvent {
     TResult? Function(CountdownBlocEventCreated value)? eventCreated,
     TResult? Function(CountdownBlocEventEdited value)? eventEdited,
     TResult? Function(CountdownBlocEventDeleted value)? eventDeleted,
+    TResult? Function(UpdatedTimers value)? updatedTimers,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -63,6 +68,7 @@ mixin _$CountdownBlocEvent {
     TResult Function(CountdownBlocEventCreated value)? eventCreated,
     TResult Function(CountdownBlocEventEdited value)? eventEdited,
     TResult Function(CountdownBlocEventDeleted value)? eventDeleted,
+    TResult Function(UpdatedTimers value)? updatedTimers,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -142,6 +148,7 @@ class _$CountdownBlocEventImpl
     required TResult Function(CountdownEvent event) eventCreated,
     required TResult Function(CountdownEvent event) eventEdited,
     required TResult Function(CountdownEvent event) eventDeleted,
+    required TResult Function() updatedTimers,
   }) {
     return $default();
   }
@@ -153,6 +160,7 @@ class _$CountdownBlocEventImpl
     TResult? Function(CountdownEvent event)? eventCreated,
     TResult? Function(CountdownEvent event)? eventEdited,
     TResult? Function(CountdownEvent event)? eventDeleted,
+    TResult? Function()? updatedTimers,
   }) {
     return $default?.call();
   }
@@ -164,6 +172,7 @@ class _$CountdownBlocEventImpl
     TResult Function(CountdownEvent event)? eventCreated,
     TResult Function(CountdownEvent event)? eventEdited,
     TResult Function(CountdownEvent event)? eventDeleted,
+    TResult Function()? updatedTimers,
     required TResult orElse(),
   }) {
     if ($default != null) {
@@ -179,6 +188,7 @@ class _$CountdownBlocEventImpl
     required TResult Function(CountdownBlocEventCreated value) eventCreated,
     required TResult Function(CountdownBlocEventEdited value) eventEdited,
     required TResult Function(CountdownBlocEventDeleted value) eventDeleted,
+    required TResult Function(UpdatedTimers value) updatedTimers,
   }) {
     return $default(this);
   }
@@ -190,6 +200,7 @@ class _$CountdownBlocEventImpl
     TResult? Function(CountdownBlocEventCreated value)? eventCreated,
     TResult? Function(CountdownBlocEventEdited value)? eventEdited,
     TResult? Function(CountdownBlocEventDeleted value)? eventDeleted,
+    TResult? Function(UpdatedTimers value)? updatedTimers,
   }) {
     return $default?.call(this);
   }
@@ -201,6 +212,7 @@ class _$CountdownBlocEventImpl
     TResult Function(CountdownBlocEventCreated value)? eventCreated,
     TResult Function(CountdownBlocEventEdited value)? eventEdited,
     TResult Function(CountdownBlocEventDeleted value)? eventDeleted,
+    TResult Function(UpdatedTimers value)? updatedTimers,
     required TResult orElse(),
   }) {
     if ($default != null) {
@@ -312,6 +324,7 @@ class _$CountdownBlocEventCreatedImpl
     required TResult Function(CountdownEvent event) eventCreated,
     required TResult Function(CountdownEvent event) eventEdited,
     required TResult Function(CountdownEvent event) eventDeleted,
+    required TResult Function() updatedTimers,
   }) {
     return eventCreated(event);
   }
@@ -323,6 +336,7 @@ class _$CountdownBlocEventCreatedImpl
     TResult? Function(CountdownEvent event)? eventCreated,
     TResult? Function(CountdownEvent event)? eventEdited,
     TResult? Function(CountdownEvent event)? eventDeleted,
+    TResult? Function()? updatedTimers,
   }) {
     return eventCreated?.call(event);
   }
@@ -334,6 +348,7 @@ class _$CountdownBlocEventCreatedImpl
     TResult Function(CountdownEvent event)? eventCreated,
     TResult Function(CountdownEvent event)? eventEdited,
     TResult Function(CountdownEvent event)? eventDeleted,
+    TResult Function()? updatedTimers,
     required TResult orElse(),
   }) {
     if (eventCreated != null) {
@@ -349,6 +364,7 @@ class _$CountdownBlocEventCreatedImpl
     required TResult Function(CountdownBlocEventCreated value) eventCreated,
     required TResult Function(CountdownBlocEventEdited value) eventEdited,
     required TResult Function(CountdownBlocEventDeleted value) eventDeleted,
+    required TResult Function(UpdatedTimers value) updatedTimers,
   }) {
     return eventCreated(this);
   }
@@ -360,6 +376,7 @@ class _$CountdownBlocEventCreatedImpl
     TResult? Function(CountdownBlocEventCreated value)? eventCreated,
     TResult? Function(CountdownBlocEventEdited value)? eventEdited,
     TResult? Function(CountdownBlocEventDeleted value)? eventDeleted,
+    TResult? Function(UpdatedTimers value)? updatedTimers,
   }) {
     return eventCreated?.call(this);
   }
@@ -371,6 +388,7 @@ class _$CountdownBlocEventCreatedImpl
     TResult Function(CountdownBlocEventCreated value)? eventCreated,
     TResult Function(CountdownBlocEventEdited value)? eventEdited,
     TResult Function(CountdownBlocEventDeleted value)? eventDeleted,
+    TResult Function(UpdatedTimers value)? updatedTimers,
     required TResult orElse(),
   }) {
     if (eventCreated != null) {
@@ -491,6 +509,7 @@ class _$CountdownBlocEventEditedImpl
     required TResult Function(CountdownEvent event) eventCreated,
     required TResult Function(CountdownEvent event) eventEdited,
     required TResult Function(CountdownEvent event) eventDeleted,
+    required TResult Function() updatedTimers,
   }) {
     return eventEdited(event);
   }
@@ -502,6 +521,7 @@ class _$CountdownBlocEventEditedImpl
     TResult? Function(CountdownEvent event)? eventCreated,
     TResult? Function(CountdownEvent event)? eventEdited,
     TResult? Function(CountdownEvent event)? eventDeleted,
+    TResult? Function()? updatedTimers,
   }) {
     return eventEdited?.call(event);
   }
@@ -513,6 +533,7 @@ class _$CountdownBlocEventEditedImpl
     TResult Function(CountdownEvent event)? eventCreated,
     TResult Function(CountdownEvent event)? eventEdited,
     TResult Function(CountdownEvent event)? eventDeleted,
+    TResult Function()? updatedTimers,
     required TResult orElse(),
   }) {
     if (eventEdited != null) {
@@ -528,6 +549,7 @@ class _$CountdownBlocEventEditedImpl
     required TResult Function(CountdownBlocEventCreated value) eventCreated,
     required TResult Function(CountdownBlocEventEdited value) eventEdited,
     required TResult Function(CountdownBlocEventDeleted value) eventDeleted,
+    required TResult Function(UpdatedTimers value) updatedTimers,
   }) {
     return eventEdited(this);
   }
@@ -539,6 +561,7 @@ class _$CountdownBlocEventEditedImpl
     TResult? Function(CountdownBlocEventCreated value)? eventCreated,
     TResult? Function(CountdownBlocEventEdited value)? eventEdited,
     TResult? Function(CountdownBlocEventDeleted value)? eventDeleted,
+    TResult? Function(UpdatedTimers value)? updatedTimers,
   }) {
     return eventEdited?.call(this);
   }
@@ -550,6 +573,7 @@ class _$CountdownBlocEventEditedImpl
     TResult Function(CountdownBlocEventCreated value)? eventCreated,
     TResult Function(CountdownBlocEventEdited value)? eventEdited,
     TResult Function(CountdownBlocEventDeleted value)? eventDeleted,
+    TResult Function(UpdatedTimers value)? updatedTimers,
     required TResult orElse(),
   }) {
     if (eventEdited != null) {
@@ -670,6 +694,7 @@ class _$CountdownBlocEventDeletedImpl
     required TResult Function(CountdownEvent event) eventCreated,
     required TResult Function(CountdownEvent event) eventEdited,
     required TResult Function(CountdownEvent event) eventDeleted,
+    required TResult Function() updatedTimers,
   }) {
     return eventDeleted(event);
   }
@@ -681,6 +706,7 @@ class _$CountdownBlocEventDeletedImpl
     TResult? Function(CountdownEvent event)? eventCreated,
     TResult? Function(CountdownEvent event)? eventEdited,
     TResult? Function(CountdownEvent event)? eventDeleted,
+    TResult? Function()? updatedTimers,
   }) {
     return eventDeleted?.call(event);
   }
@@ -692,6 +718,7 @@ class _$CountdownBlocEventDeletedImpl
     TResult Function(CountdownEvent event)? eventCreated,
     TResult Function(CountdownEvent event)? eventEdited,
     TResult Function(CountdownEvent event)? eventDeleted,
+    TResult Function()? updatedTimers,
     required TResult orElse(),
   }) {
     if (eventDeleted != null) {
@@ -707,6 +734,7 @@ class _$CountdownBlocEventDeletedImpl
     required TResult Function(CountdownBlocEventCreated value) eventCreated,
     required TResult Function(CountdownBlocEventEdited value) eventEdited,
     required TResult Function(CountdownBlocEventDeleted value) eventDeleted,
+    required TResult Function(UpdatedTimers value) updatedTimers,
   }) {
     return eventDeleted(this);
   }
@@ -718,6 +746,7 @@ class _$CountdownBlocEventDeletedImpl
     TResult? Function(CountdownBlocEventCreated value)? eventCreated,
     TResult? Function(CountdownBlocEventEdited value)? eventEdited,
     TResult? Function(CountdownBlocEventDeleted value)? eventDeleted,
+    TResult? Function(UpdatedTimers value)? updatedTimers,
   }) {
     return eventDeleted?.call(this);
   }
@@ -729,6 +758,7 @@ class _$CountdownBlocEventDeletedImpl
     TResult Function(CountdownBlocEventCreated value)? eventCreated,
     TResult Function(CountdownBlocEventEdited value)? eventEdited,
     TResult Function(CountdownBlocEventDeleted value)? eventDeleted,
+    TResult Function(UpdatedTimers value)? updatedTimers,
     required TResult orElse(),
   }) {
     if (eventDeleted != null) {
@@ -749,4 +779,136 @@ abstract class CountdownBlocEventDeleted implements CountdownBlocEvent {
   @JsonKey(includeFromJson: false, includeToJson: false)
   _$$CountdownBlocEventDeletedImplCopyWith<_$CountdownBlocEventDeletedImpl>
       get copyWith => throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class _$$UpdatedTimersImplCopyWith<$Res> {
+  factory _$$UpdatedTimersImplCopyWith(
+          _$UpdatedTimersImpl value, $Res Function(_$UpdatedTimersImpl) then) =
+      __$$UpdatedTimersImplCopyWithImpl<$Res>;
+}
+
+/// @nodoc
+class __$$UpdatedTimersImplCopyWithImpl<$Res>
+    extends _$CountdownBlocEventCopyWithImpl<$Res, _$UpdatedTimersImpl>
+    implements _$$UpdatedTimersImplCopyWith<$Res> {
+  __$$UpdatedTimersImplCopyWithImpl(
+      _$UpdatedTimersImpl _value, $Res Function(_$UpdatedTimersImpl) _then)
+      : super(_value, _then);
+
+  /// Create a copy of CountdownBlocEvent
+  /// with the given fields replaced by the non-null parameter values.
+}
+
+/// @nodoc
+
+class _$UpdatedTimersImpl
+    with DiagnosticableTreeMixin
+    implements UpdatedTimers {
+  const _$UpdatedTimersImpl();
+
+  @override
+  String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
+    return 'CountdownBlocEvent.updatedTimers()';
+  }
+
+  @override
+  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
+    super.debugFillProperties(properties);
+    properties
+      ..add(DiagnosticsProperty('type', 'CountdownBlocEvent.updatedTimers'));
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType && other is _$UpdatedTimersImpl);
+  }
+
+  @override
+  int get hashCode => runtimeType.hashCode;
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>(
+    TResult Function() $default, {
+    required TResult Function(CountdownEvent event) eventCreated,
+    required TResult Function(CountdownEvent event) eventEdited,
+    required TResult Function(CountdownEvent event) eventDeleted,
+    required TResult Function() updatedTimers,
+  }) {
+    return updatedTimers();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>(
+    TResult? Function()? $default, {
+    TResult? Function(CountdownEvent event)? eventCreated,
+    TResult? Function(CountdownEvent event)? eventEdited,
+    TResult? Function(CountdownEvent event)? eventDeleted,
+    TResult? Function()? updatedTimers,
+  }) {
+    return updatedTimers?.call();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>(
+    TResult Function()? $default, {
+    TResult Function(CountdownEvent event)? eventCreated,
+    TResult Function(CountdownEvent event)? eventEdited,
+    TResult Function(CountdownEvent event)? eventDeleted,
+    TResult Function()? updatedTimers,
+    required TResult orElse(),
+  }) {
+    if (updatedTimers != null) {
+      return updatedTimers();
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>(
+    TResult Function(_CountdownBlocEvent value) $default, {
+    required TResult Function(CountdownBlocEventCreated value) eventCreated,
+    required TResult Function(CountdownBlocEventEdited value) eventEdited,
+    required TResult Function(CountdownBlocEventDeleted value) eventDeleted,
+    required TResult Function(UpdatedTimers value) updatedTimers,
+  }) {
+    return updatedTimers(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>(
+    TResult? Function(_CountdownBlocEvent value)? $default, {
+    TResult? Function(CountdownBlocEventCreated value)? eventCreated,
+    TResult? Function(CountdownBlocEventEdited value)? eventEdited,
+    TResult? Function(CountdownBlocEventDeleted value)? eventDeleted,
+    TResult? Function(UpdatedTimers value)? updatedTimers,
+  }) {
+    return updatedTimers?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>(
+    TResult Function(_CountdownBlocEvent value)? $default, {
+    TResult Function(CountdownBlocEventCreated value)? eventCreated,
+    TResult Function(CountdownBlocEventEdited value)? eventEdited,
+    TResult Function(CountdownBlocEventDeleted value)? eventDeleted,
+    TResult Function(UpdatedTimers value)? updatedTimers,
+    required TResult orElse(),
+  }) {
+    if (updatedTimers != null) {
+      return updatedTimers(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class UpdatedTimers implements CountdownBlocEvent {
+  const factory UpdatedTimers() = _$UpdatedTimersImpl;
 }

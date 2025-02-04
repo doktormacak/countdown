@@ -16,6 +16,7 @@ class CountdownEventsScreen extends StatelessWidget {
     return BlocProvider(
       create: (_) => CountdownBloc(),
       child: BlocBuilder<CountdownBloc, CountdownState>(
+        buildWhen: (previous, current) => previous.events != current.events,
         builder: (context, state) {
           return Scaffold(
             floatingActionButton: FloatingActionButton(
@@ -24,7 +25,7 @@ class CountdownEventsScreen extends StatelessWidget {
                       CountdownBlocEventCreated(
                         event: CountdownEvent.create(
                           name: 'Gym',
-                          dateTime: DateTime.parse('2025-01-31 18:30:00'),
+                          dateTime: DateTime.parse('2025-02-05 18:30:00'),
                           timezone: 'Europe/Berlin',
                           isRepeating: true,
                           repeatConfig: const RepeatConfiguration(
@@ -37,7 +38,7 @@ class CountdownEventsScreen extends StatelessWidget {
               },
               child: const Icon(Icons.add),
             ),
-            body: state!.events.isEmpty
+            body: state.events.isEmpty
                 ? const Center(
                     child: Text('No events'),
                   )
@@ -48,14 +49,7 @@ class CountdownEventsScreen extends StatelessWidget {
                       itemCount: state.events.length,
                       itemBuilder: (context, index) {
                         final event = state.events[index];
-                        return Row(
-                          spacing: 10,
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          children: [
-                            Text(event.name),
-                            Text(event.getRemainingDuration().toString()),
-                          ],
-                        );
+                        return Event(event: event);
                       },
                     ),
                   ),
@@ -63,5 +57,36 @@ class CountdownEventsScreen extends StatelessWidget {
         },
       ),
     );
+  }
+}
+
+class Event extends StatelessWidget {
+  const Event({
+    super.key,
+    required this.event,
+  });
+
+  final CountdownEvent event;
+
+  String _formatDuration(Duration d) {
+    return "${d.inDays}d ${d.inHours.remainder(24)}h "
+        "${d.inMinutes.remainder(60)}m ${d.inSeconds.remainder(60)}s";
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return BlocSelector<CountdownBloc, CountdownState, DateTime?>(
+        selector: (state) => state.lastUpdated,
+        builder: (context, lastUpdated) {
+          final remaining = event.dateTime.difference(DateTime.now());
+          return Row(
+            spacing: 10,
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: [
+              Text(event.name),
+              Text(_formatDuration(remaining)),
+            ],
+          );
+        });
   }
 }
