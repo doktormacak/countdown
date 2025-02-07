@@ -2,6 +2,8 @@ import 'package:countdown/domain/models/countdown_event/countdown_event.dart';
 import 'package:countdown/ui/view_model/countdown_bloc/countdown_bloc.dart';
 import 'package:countdown/ui/view_model/countdown_bloc/countdown_event.dart';
 import 'package:countdown/ui/view_model/countdown_bloc/countdown_state.dart';
+import 'package:countdown/ui/widgets/event_screen.dart';
+import 'package:countdown/utils/format_duration.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -49,24 +51,26 @@ class Event extends StatelessWidget {
 
   final CountdownEvent event;
 
-  String _formatDuration(Duration d) {
-    return "${d.inDays}d ${d.inHours.remainder(24)}h "
-        "${d.inMinutes.remainder(60)}m ${d.inSeconds.remainder(60)}s";
-  }
-
   @override
   Widget build(BuildContext context) {
     return BlocSelector<CountdownBloc, CountdownState, DateTime?>(
         selector: (state) => state.lastUpdated,
         builder: (context, lastUpdated) {
           final remaining = event.dateTime.difference(DateTime.now());
-          return Row(
-            spacing: 10,
-            mainAxisAlignment: MainAxisAlignment.start,
-            children: [
-              Text(event.name),
-              Text(_formatDuration(remaining)),
-            ],
+          return GestureDetector(
+            onTap: () => Navigator.of(context).push(
+              MaterialPageRoute(
+                builder: (context) => EventScreen(event: event),
+              ),
+            ),
+            child: Row(
+              spacing: 10,
+              mainAxisAlignment: MainAxisAlignment.start,
+              children: [
+                Text(event.name),
+                Text(remaining.formatDuration()),
+              ],
+            ),
           );
         });
   }

@@ -16,9 +16,9 @@ class MyApp extends StatelessWidget {
     return BlocProvider(
       create: (context) => CountdownBloc(),
       child: MaterialApp(
+        home: const CountdownEventsScreen(),
         debugShowCheckedModeBanner: false,
         theme: ThemeData.dark(),
-        home: const CountdownEventsScreen(),
       ),
     );
   }
