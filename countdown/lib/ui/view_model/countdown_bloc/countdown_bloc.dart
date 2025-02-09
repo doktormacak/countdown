@@ -6,15 +6,13 @@ import 'package:countdown/ui/view_model/countdown_bloc/countdown_state.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class CountdownBloc extends Bloc<CountdownBlocEvent, CountdownState> {
-  late Timer _timer;
-
   CountdownBloc() : super(const CountdownState()) {
     on<CountdownBlocEventCreated>(_onEventCreated);
     on<CountdownBlocEventEdited>(_onEventEdited);
     on<CountdownBlocEventDeleted>(_onEventDeleted);
     on<UpdatedTimers>(_onUpdatedTimers);
 
-    _timer = Timer.periodic(const Duration(seconds: 1), (_) {
+    Timer.periodic(const Duration(seconds: 1), (_) {
       add(const UpdatedTimers());
     });
   }

@@ -57,19 +57,33 @@ class Event extends StatelessWidget {
         selector: (state) => state.lastUpdated,
         builder: (context, lastUpdated) {
           final remaining = event.dateTime.difference(DateTime.now());
-          return GestureDetector(
-            onTap: () => Navigator.of(context).push(
-              MaterialPageRoute(
-                builder: (context) => EventScreen(event: event),
+          return Dismissible(
+            background: Container(
+              color: Colors.red,
+              alignment: Alignment.centerRight,
+              child: const Icon(
+                Icons.delete,
               ),
             ),
-            child: Row(
-              spacing: 10,
-              mainAxisAlignment: MainAxisAlignment.start,
-              children: [
-                Text(event.name),
-                Text(remaining.formatDuration()),
-              ],
+            direction: DismissDirection.endToStart,
+            key: Key(event.id),
+            onDismissed: (direction) => context.read<CountdownBloc>().add(
+                  CountdownBlocEventDeleted(event: event),
+                ),
+            child: GestureDetector(
+              onTap: () => Navigator.of(context).push(
+                MaterialPageRoute(
+                  builder: (context) => EventScreen(event: event),
+                ),
+              ),
+              child: Row(
+                spacing: 10,
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: [
+                  Text(event.name),
+                  Text(remaining.formatDuration()),
+                ],
+              ),
             ),
           );
         });

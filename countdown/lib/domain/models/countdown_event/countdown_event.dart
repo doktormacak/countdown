@@ -1,4 +1,3 @@
-// lib/models/countdown_event.dart
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:uuid/uuid.dart';
 
