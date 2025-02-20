@@ -14,17 +14,26 @@ T _$identity<T>(T value) => value;
 final _privateConstructorUsedError = UnsupportedError(
     'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models');
 
+CountdownEvent _$CountdownEventFromJson(Map<String, dynamic> json) {
+  return _CountdownEvent.fromJson(json);
+}
+
 /// @nodoc
 mixin _$CountdownEvent {
   String get id => throw _privateConstructorUsedError;
-  String get name => throw _privateConstructorUsedError;
+  String get title => throw _privateConstructorUsedError;
   String? get notes => throw _privateConstructorUsedError;
   String? get iconName => throw _privateConstructorUsedError;
-  DateTime get dateTime => throw _privateConstructorUsedError;
+  DateTime get createdAt => throw _privateConstructorUsedError;
   List<String> get tags => throw _privateConstructorUsedError;
-  String get timezone => throw _privateConstructorUsedError;
-  bool get isRepeating => throw _privateConstructorUsedError;
-  RepeatConfiguration? get repeatConfig => throw _privateConstructorUsedError;
+  EventType get type => throw _privateConstructorUsedError;
+  EventTimingDetails get timing => throw _privateConstructorUsedError;
+  NotificationSettings get notificationSettings =>
+      throw _privateConstructorUsedError;
+  bool get isArchived => throw _privateConstructorUsedError;
+
+  /// Serializes this CountdownEvent to a JSON map.
+  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
 
   /// Create a copy of CountdownEvent
   /// with the given fields replaced by the non-null parameter values.
@@ -41,16 +50,18 @@ abstract class $CountdownEventCopyWith<$Res> {
   @useResult
   $Res call(
       {String id,
-      String name,
+      String title,
       String? notes,
       String? iconName,
-      DateTime dateTime,
+      DateTime createdAt,
       List<String> tags,
-      String timezone,
-      bool isRepeating,
-      RepeatConfiguration? repeatConfig});
+      EventType type,
+      EventTimingDetails timing,
+      NotificationSettings notificationSettings,
+      bool isArchived});
 
-  $RepeatConfigurationCopyWith<$Res>? get repeatConfig;
+  $EventTimingDetailsCopyWith<$Res> get timing;
+  $NotificationSettingsCopyWith<$Res> get notificationSettings;
 }
 
 /// @nodoc
@@ -69,23 +80,24 @@ class _$CountdownEventCopyWithImpl<$Res, $Val extends CountdownEvent>
   @override
   $Res call({
     Object? id = null,
-    Object? name = null,
+    Object? title = null,
     Object? notes = freezed,
     Object? iconName = freezed,
-    Object? dateTime = null,
+    Object? createdAt = null,
     Object? tags = null,
-    Object? timezone = null,
-    Object? isRepeating = null,
-    Object? repeatConfig = freezed,
+    Object? type = null,
+    Object? timing = null,
+    Object? notificationSettings = null,
+    Object? isArchived = null,
   }) {
     return _then(_value.copyWith(
       id: null == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
               as String,
-      name: null == name
-          ? _value.name
-          : name // ignore: cast_nullable_to_non_nullable
+      title: null == title
+          ? _value.title
+          : title // ignore: cast_nullable_to_non_nullable
               as String,
       notes: freezed == notes
           ? _value.notes
@@ -95,26 +107,30 @@ class _$CountdownEventCopyWithImpl<$Res, $Val extends CountdownEvent>
           ? _value.iconName
           : iconName // ignore: cast_nullable_to_non_nullable
               as String?,
-      dateTime: null == dateTime
-          ? _value.dateTime
-          : dateTime // ignore: cast_nullable_to_non_nullable
+      createdAt: null == createdAt
+          ? _value.createdAt
+          : createdAt // ignore: cast_nullable_to_non_nullable
               as DateTime,
       tags: null == tags
           ? _value.tags
           : tags // ignore: cast_nullable_to_non_nullable
               as List<String>,
-      timezone: null == timezone
-          ? _value.timezone
-          : timezone // ignore: cast_nullable_to_non_nullable
-              as String,
-      isRepeating: null == isRepeating
-          ? _value.isRepeating
-          : isRepeating // ignore: cast_nullable_to_non_nullable
+      type: null == type
+          ? _value.type
+          : type // ignore: cast_nullable_to_non_nullable
+              as EventType,
+      timing: null == timing
+          ? _value.timing
+          : timing // ignore: cast_nullable_to_non_nullable
+              as EventTimingDetails,
+      notificationSettings: null == notificationSettings
+          ? _value.notificationSettings
+          : notificationSettings // ignore: cast_nullable_to_non_nullable
+              as NotificationSettings,
+      isArchived: null == isArchived
+          ? _value.isArchived
+          : isArchived // ignore: cast_nullable_to_non_nullable
               as bool,
-      repeatConfig: freezed == repeatConfig
-          ? _value.repeatConfig
-          : repeatConfig // ignore: cast_nullable_to_non_nullable
-              as RepeatConfiguration?,
     ) as $Val);
   }
 
@@ -122,13 +138,20 @@ class _$CountdownEventCopyWithImpl<$Res, $Val extends CountdownEvent>
   /// with the given fields replaced by the non-null parameter values.
   @override
   @pragma('vm:prefer-inline')
-  $RepeatConfigurationCopyWith<$Res>? get repeatConfig {
-    if (_value.repeatConfig == null) {
-      return null;
-    }
+  $EventTimingDetailsCopyWith<$Res> get timing {
+    return $EventTimingDetailsCopyWith<$Res>(_value.timing, (value) {
+      return _then(_value.copyWith(timing: value) as $Val);
+    });
+  }
 
-    return $RepeatConfigurationCopyWith<$Res>(_value.repeatConfig!, (value) {
-      return _then(_value.copyWith(repeatConfig: value) as $Val);
+  /// Create a copy of CountdownEvent
+  /// with the given fields replaced by the non-null parameter values.
+  @override
+  @pragma('vm:prefer-inline')
+  $NotificationSettingsCopyWith<$Res> get notificationSettings {
+    return $NotificationSettingsCopyWith<$Res>(_value.notificationSettings,
+        (value) {
+      return _then(_value.copyWith(notificationSettings: value) as $Val);
     });
   }
 }
@@ -143,17 +166,20 @@ abstract class _$$CountdownEventImplCopyWith<$Res>
   @useResult
   $Res call(
       {String id,
-      String name,
+      String title,
       String? notes,
       String? iconName,
-      DateTime dateTime,
+      DateTime createdAt,
       List<String> tags,
-      String timezone,
-      bool isRepeating,
-      RepeatConfiguration? repeatConfig});
+      EventType type,
+      EventTimingDetails timing,
+      NotificationSettings notificationSettings,
+      bool isArchived});
 
   @override
-  $RepeatConfigurationCopyWith<$Res>? get repeatConfig;
+  $EventTimingDetailsCopyWith<$Res> get timing;
+  @override
+  $NotificationSettingsCopyWith<$Res> get notificationSettings;
 }
 
 /// @nodoc
@@ -170,23 +196,24 @@ class __$$CountdownEventImplCopyWithImpl<$Res>
   @override
   $Res call({
     Object? id = null,
-    Object? name = null,
+    Object? title = null,
     Object? notes = freezed,
     Object? iconName = freezed,
-    Object? dateTime = null,
+    Object? createdAt = null,
     Object? tags = null,
-    Object? timezone = null,
-    Object? isRepeating = null,
-    Object? repeatConfig = freezed,
+    Object? type = null,
+    Object? timing = null,
+    Object? notificationSettings = null,
+    Object? isArchived = null,
   }) {
     return _then(_$CountdownEventImpl(
       id: null == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
               as String,
-      name: null == name
-          ? _value.name
-          : name // ignore: cast_nullable_to_non_nullable
+      title: null == title
+          ? _value.title
+          : title // ignore: cast_nullable_to_non_nullable
               as String,
       notes: freezed == notes
           ? _value.notes
@@ -196,55 +223,63 @@ class __$$CountdownEventImplCopyWithImpl<$Res>
           ? _value.iconName
           : iconName // ignore: cast_nullable_to_non_nullable
               as String?,
-      dateTime: null == dateTime
-          ? _value.dateTime
-          : dateTime // ignore: cast_nullable_to_non_nullable
+      createdAt: null == createdAt
+          ? _value.createdAt
+          : createdAt // ignore: cast_nullable_to_non_nullable
               as DateTime,
       tags: null == tags
           ? _value._tags
           : tags // ignore: cast_nullable_to_non_nullable
               as List<String>,
-      timezone: null == timezone
-          ? _value.timezone
-          : timezone // ignore: cast_nullable_to_non_nullable
-              as String,
-      isRepeating: null == isRepeating
-          ? _value.isRepeating
-          : isRepeating // ignore: cast_nullable_to_non_nullable
+      type: null == type
+          ? _value.type
+          : type // ignore: cast_nullable_to_non_nullable
+              as EventType,
+      timing: null == timing
+          ? _value.timing
+          : timing // ignore: cast_nullable_to_non_nullable
+              as EventTimingDetails,
+      notificationSettings: null == notificationSettings
+          ? _value.notificationSettings
+          : notificationSettings // ignore: cast_nullable_to_non_nullable
+              as NotificationSettings,
+      isArchived: null == isArchived
+          ? _value.isArchived
+          : isArchived // ignore: cast_nullable_to_non_nullable
               as bool,
-      repeatConfig: freezed == repeatConfig
-          ? _value.repeatConfig
-          : repeatConfig // ignore: cast_nullable_to_non_nullable
-              as RepeatConfiguration?,
     ));
   }
 }
 
 /// @nodoc
-
+@JsonSerializable()
 class _$CountdownEventImpl implements _CountdownEvent {
   const _$CountdownEventImpl(
       {required this.id,
-      required this.name,
+      required this.title,
       this.notes,
       this.iconName,
-      required this.dateTime,
+      required this.createdAt,
       final List<String> tags = const [],
-      required this.timezone,
-      this.isRepeating = false,
-      this.repeatConfig})
+      required this.type,
+      required this.timing,
+      required this.notificationSettings,
+      this.isArchived = false})
       : _tags = tags;
+
+  factory _$CountdownEventImpl.fromJson(Map<String, dynamic> json) =>
+      _$$CountdownEventImplFromJson(json);
 
   @override
   final String id;
   @override
-  final String name;
+  final String title;
   @override
   final String? notes;
   @override
   final String? iconName;
   @override
-  final DateTime dateTime;
+  final DateTime createdAt;
   final List<String> _tags;
   @override
   @JsonKey()
@@ -255,16 +290,18 @@ class _$CountdownEventImpl implements _CountdownEvent {
   }
 
   @override
-  final String timezone;
+  final EventType type;
+  @override
+  final EventTimingDetails timing;
+  @override
+  final NotificationSettings notificationSettings;
   @override
   @JsonKey()
-  final bool isRepeating;
-  @override
-  final RepeatConfiguration? repeatConfig;
+  final bool isArchived;
 
   @override
   String toString() {
-    return 'CountdownEvent(id: $id, name: $name, notes: $notes, iconName: $iconName, dateTime: $dateTime, tags: $tags, timezone: $timezone, isRepeating: $isRepeating, repeatConfig: $repeatConfig)';
+    return 'CountdownEvent(id: $id, title: $title, notes: $notes, iconName: $iconName, createdAt: $createdAt, tags: $tags, type: $type, timing: $timing, notificationSettings: $notificationSettings, isArchived: $isArchived)';
   }
 
   @override
@@ -273,33 +310,35 @@ class _$CountdownEventImpl implements _CountdownEvent {
         (other.runtimeType == runtimeType &&
             other is _$CountdownEventImpl &&
             (identical(other.id, id) || other.id == id) &&
-            (identical(other.name, name) || other.name == name) &&
+            (identical(other.title, title) || other.title == title) &&
             (identical(other.notes, notes) || other.notes == notes) &&
             (identical(other.iconName, iconName) ||
                 other.iconName == iconName) &&
-            (identical(other.dateTime, dateTime) ||
-                other.dateTime == dateTime) &&
+            (identical(other.createdAt, createdAt) ||
+                other.createdAt == createdAt) &&
             const DeepCollectionEquality().equals(other._tags, _tags) &&
-            (identical(other.timezone, timezone) ||
-                other.timezone == timezone) &&
-            (identical(other.isRepeating, isRepeating) ||
-                other.isRepeating == isRepeating) &&
-            (identical(other.repeatConfig, repeatConfig) ||
-                other.repeatConfig == repeatConfig));
+            (identical(other.type, type) || other.type == type) &&
+            (identical(other.timing, timing) || other.timing == timing) &&
+            (identical(other.notificationSettings, notificationSettings) ||
+                other.notificationSettings == notificationSettings) &&
+            (identical(other.isArchived, isArchived) ||
+                other.isArchived == isArchived));
   }
 
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   int get hashCode => Object.hash(
       runtimeType,
       id,
-      name,
+      title,
       notes,
       iconName,
-      dateTime,
+      createdAt,
       const DeepCollectionEquality().hash(_tags),
-      timezone,
-      isRepeating,
-      repeatConfig);
+      type,
+      timing,
+      notificationSettings,
+      isArchived);
 
   /// Create a copy of CountdownEvent
   /// with the given fields replaced by the non-null parameter values.
@@ -309,38 +348,51 @@ class _$CountdownEventImpl implements _CountdownEvent {
   _$$CountdownEventImplCopyWith<_$CountdownEventImpl> get copyWith =>
       __$$CountdownEventImplCopyWithImpl<_$CountdownEventImpl>(
           this, _$identity);
+
+  @override
+  Map<String, dynamic> toJson() {
+    return _$$CountdownEventImplToJson(
+      this,
+    );
+  }
 }
 
 abstract class _CountdownEvent implements CountdownEvent {
   const factory _CountdownEvent(
       {required final String id,
-      required final String name,
+      required final String title,
       final String? notes,
       final String? iconName,
-      required final DateTime dateTime,
+      required final DateTime createdAt,
       final List<String> tags,
-      required final String timezone,
-      final bool isRepeating,
-      final RepeatConfiguration? repeatConfig}) = _$CountdownEventImpl;
+      required final EventType type,
+      required final EventTimingDetails timing,
+      required final NotificationSettings notificationSettings,
+      final bool isArchived}) = _$CountdownEventImpl;
+
+  factory _CountdownEvent.fromJson(Map<String, dynamic> json) =
+      _$CountdownEventImpl.fromJson;
 
   @override
   String get id;
   @override
-  String get name;
+  String get title;
   @override
   String? get notes;
   @override
   String? get iconName;
   @override
-  DateTime get dateTime;
+  DateTime get createdAt;
   @override
   List<String> get tags;
   @override
-  String get timezone;
+  EventType get type;
   @override
-  bool get isRepeating;
+  EventTimingDetails get timing;
   @override
-  RepeatConfiguration? get repeatConfig;
+  NotificationSettings get notificationSettings;
+  @override
+  bool get isArchived;
 
   /// Create a copy of CountdownEvent
   /// with the given fields replaced by the non-null parameter values.

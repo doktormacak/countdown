@@ -26,8 +26,17 @@ class DatabaseService {
   }
 
   Future<void> _onCreate(Database db, int version) async {
-    await db.execute(
-      'CREATE TABLE events(id INTEGER PRIMARY KEY, name TEXT, notes TEXT, dateTime TEXT, timezone TEXT)',
-    );
+    await db.execute('''
+      CREATE TABLE events(
+        id TEXT PRIMARY KEY,
+        name TEXT NOT NULL,
+        notes TEXT,
+        iconName TEXT,
+        dateTime TEXT NOT NULL,
+        tags TEXT,
+        timezone TEXT NOT NULL,
+        isRepeating INTEGER DEFAULT 1,
+      )
+    ''');
   }
 }
