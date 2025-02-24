@@ -1,11 +1,12 @@
 import '../../domain/models/countdown_event/countdown_event.dart';
+import '../../utils/result.dart';
 
 abstract class CountdownRepository {
-  Future<List<CountdownEvent>> getAllEvents();
-  Future<CountdownEvent?> getEventById(String id);
-  Future<List<CountdownEvent>> getActiveEvents();
-  Future<void> saveEvent(CountdownEvent event);
-  Future<void> deleteEvent(String id);
-  Future<void> archiveEvent(String id);
-  Stream<List<CountdownEvent>> watchActiveEvents();
+  Future<Result<List<CountdownEvent>>> getAllEvents();
+  Future<Result<CountdownEvent>> getEventById(String id);
+  Future<Result<List<CountdownEvent>>> getActiveEvents();
+  Future<Result<void>> saveEvent(CountdownEvent event);
+  Future<Result<void>> deleteEvent(String id);
+  Future<Result<void>> archiveEvent(String id);
+  Stream<Result<List<CountdownEvent>>> watchActiveEvents();
 }
