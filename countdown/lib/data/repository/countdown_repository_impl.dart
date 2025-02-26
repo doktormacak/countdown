@@ -13,7 +13,10 @@ class CountdownRepositoryImpl implements CountdownRepository {
   final _eventStreamController =
       StreamController<Result<List<CountdownEvent>>>.broadcast();
 
-  CountdownRepositoryImpl(this._db, this._logger) {
+  CountdownRepositoryImpl(
+    this._db,
+    this._logger,
+  ) {
     _logger.debug('Countdown repository initialized');
   }
 
@@ -29,6 +32,7 @@ class CountdownRepositoryImpl implements CountdownRepository {
             return Result.error(EventNotFoundException(id));
           }
           _logger.info('Event archived successfully: $id');
+
           await _notifyEventUpdates();
           return const Result.ok(null);
         },

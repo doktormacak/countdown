@@ -24,6 +24,7 @@ mixin _$CountdownEvent {
   String get title => throw _privateConstructorUsedError;
   String? get notes => throw _privateConstructorUsedError;
   String? get iconName => throw _privateConstructorUsedError;
+  @DateTimeConverter()
   DateTime get createdAt => throw _privateConstructorUsedError;
   List<String> get tags => throw _privateConstructorUsedError;
   EventType get type => throw _privateConstructorUsedError;
@@ -53,7 +54,7 @@ abstract class $CountdownEventCopyWith<$Res> {
       String title,
       String? notes,
       String? iconName,
-      DateTime createdAt,
+      @DateTimeConverter() DateTime createdAt,
       List<String> tags,
       EventType type,
       EventTimingDetails timing,
@@ -169,7 +170,7 @@ abstract class _$$CountdownEventImplCopyWith<$Res>
       String title,
       String? notes,
       String? iconName,
-      DateTime createdAt,
+      @DateTimeConverter() DateTime createdAt,
       List<String> tags,
       EventType type,
       EventTimingDetails timing,
@@ -259,7 +260,7 @@ class _$CountdownEventImpl implements _CountdownEvent {
       required this.title,
       this.notes,
       this.iconName,
-      required this.createdAt,
+      @DateTimeConverter() required this.createdAt,
       final List<String> tags = const [],
       required this.type,
       required this.timing,
@@ -279,6 +280,7 @@ class _$CountdownEventImpl implements _CountdownEvent {
   @override
   final String? iconName;
   @override
+  @DateTimeConverter()
   final DateTime createdAt;
   final List<String> _tags;
   @override
@@ -363,7 +365,7 @@ abstract class _CountdownEvent implements CountdownEvent {
       required final String title,
       final String? notes,
       final String? iconName,
-      required final DateTime createdAt,
+      @DateTimeConverter() required final DateTime createdAt,
       final List<String> tags,
       required final EventType type,
       required final EventTimingDetails timing,
@@ -382,6 +384,7 @@ abstract class _CountdownEvent implements CountdownEvent {
   @override
   String? get iconName;
   @override
+  @DateTimeConverter()
   DateTime get createdAt;
   @override
   List<String> get tags;

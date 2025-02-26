@@ -1,4 +1,5 @@
 // lib/core/services/logger_service.dart
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:logger/logger.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
@@ -44,6 +45,6 @@ class LoggerService {
 }
 
 @Riverpod(keepAlive: true)
-LoggerService logger(LoggerRef ref) {
+LoggerService logger(Ref ref) {
   return LoggerService();
 }

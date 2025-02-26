@@ -12,7 +12,7 @@ _$CountdownEventImpl _$$CountdownEventImplFromJson(Map<String, dynamic> json) =>
       title: json['title'] as String,
       notes: json['notes'] as String?,
       iconName: json['iconName'] as String?,
-      createdAt: DateTime.parse(json['createdAt'] as String),
+      createdAt: const DateTimeConverter().fromJson(json['createdAt']),
       tags:
           (json['tags'] as List<dynamic>?)?.map((e) => e as String).toList() ??
               const [],
@@ -31,7 +31,7 @@ Map<String, dynamic> _$$CountdownEventImplToJson(
       'title': instance.title,
       'notes': instance.notes,
       'iconName': instance.iconName,
-      'createdAt': instance.createdAt.toIso8601String(),
+      'createdAt': const DateTimeConverter().toJson(instance.createdAt),
       'tags': instance.tags,
       'type': _$EventTypeEnumMap[instance.type]!,
       'timing': instance.timing,

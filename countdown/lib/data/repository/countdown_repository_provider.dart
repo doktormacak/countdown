@@ -13,6 +13,7 @@ Future<CountdownRepository> sqliteCountdownRepository(
 ) async {
   final dbService = await ref.watch(eventDatabaseServiceProvider.future);
   final logger = ref.watch(loggerProvider);
+
   return CountdownRepositoryImpl(dbService, logger);
 }
 

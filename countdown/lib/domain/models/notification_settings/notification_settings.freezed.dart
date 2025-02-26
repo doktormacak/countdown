@@ -24,6 +24,8 @@ mixin _$NotificationSettings {
   List<Duration> get reminders => throw _privateConstructorUsedError;
   NotificationSound get sound => throw _privateConstructorUsedError;
   bool get vibrate => throw _privateConstructorUsedError;
+  bool get snoozeEnabled => throw _privateConstructorUsedError;
+  List<Duration> get snoozeDurations => throw _privateConstructorUsedError;
 
   /// Serializes this NotificationSettings to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -45,7 +47,9 @@ abstract class $NotificationSettingsCopyWith<$Res> {
       {bool enabled,
       List<Duration> reminders,
       NotificationSound sound,
-      bool vibrate});
+      bool vibrate,
+      bool snoozeEnabled,
+      List<Duration> snoozeDurations});
 }
 
 /// @nodoc
@@ -68,6 +72,8 @@ class _$NotificationSettingsCopyWithImpl<$Res,
     Object? reminders = null,
     Object? sound = null,
     Object? vibrate = null,
+    Object? snoozeEnabled = null,
+    Object? snoozeDurations = null,
   }) {
     return _then(_value.copyWith(
       enabled: null == enabled
@@ -86,6 +92,14 @@ class _$NotificationSettingsCopyWithImpl<$Res,
           ? _value.vibrate
           : vibrate // ignore: cast_nullable_to_non_nullable
               as bool,
+      snoozeEnabled: null == snoozeEnabled
+          ? _value.snoozeEnabled
+          : snoozeEnabled // ignore: cast_nullable_to_non_nullable
+              as bool,
+      snoozeDurations: null == snoozeDurations
+          ? _value.snoozeDurations
+          : snoozeDurations // ignore: cast_nullable_to_non_nullable
+              as List<Duration>,
     ) as $Val);
   }
 }
@@ -102,7 +116,9 @@ abstract class _$$NotificationSettingsImplCopyWith<$Res>
       {bool enabled,
       List<Duration> reminders,
       NotificationSound sound,
-      bool vibrate});
+      bool vibrate,
+      bool snoozeEnabled,
+      List<Duration> snoozeDurations});
 }
 
 /// @nodoc
@@ -122,6 +138,8 @@ class __$$NotificationSettingsImplCopyWithImpl<$Res>
     Object? reminders = null,
     Object? sound = null,
     Object? vibrate = null,
+    Object? snoozeEnabled = null,
+    Object? snoozeDurations = null,
   }) {
     return _then(_$NotificationSettingsImpl(
       enabled: null == enabled
@@ -140,6 +158,14 @@ class __$$NotificationSettingsImplCopyWithImpl<$Res>
           ? _value.vibrate
           : vibrate // ignore: cast_nullable_to_non_nullable
               as bool,
+      snoozeEnabled: null == snoozeEnabled
+          ? _value.snoozeEnabled
+          : snoozeEnabled // ignore: cast_nullable_to_non_nullable
+              as bool,
+      snoozeDurations: null == snoozeDurations
+          ? _value._snoozeDurations
+          : snoozeDurations // ignore: cast_nullable_to_non_nullable
+              as List<Duration>,
     ));
   }
 }
@@ -151,8 +177,11 @@ class _$NotificationSettingsImpl implements _NotificationSettings {
       {required this.enabled,
       required final List<Duration> reminders,
       this.sound = NotificationSound.default_,
-      this.vibrate = true})
-      : _reminders = reminders;
+      this.vibrate = true,
+      this.snoozeEnabled = false,
+      final List<Duration> snoozeDurations = const [Duration(minutes: 5)]})
+      : _reminders = reminders,
+        _snoozeDurations = snoozeDurations;
 
   factory _$NotificationSettingsImpl.fromJson(Map<String, dynamic> json) =>
       _$$NotificationSettingsImplFromJson(json);
@@ -173,10 +202,21 @@ class _$NotificationSettingsImpl implements _NotificationSettings {
   @override
   @JsonKey()
   final bool vibrate;
+  @override
+  @JsonKey()
+  final bool snoozeEnabled;
+  final List<Duration> _snoozeDurations;
+  @override
+  @JsonKey()
+  List<Duration> get snoozeDurations {
+    if (_snoozeDurations is EqualUnmodifiableListView) return _snoozeDurations;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(_snoozeDurations);
+  }
 
   @override
   String toString() {
-    return 'NotificationSettings(enabled: $enabled, reminders: $reminders, sound: $sound, vibrate: $vibrate)';
+    return 'NotificationSettings(enabled: $enabled, reminders: $reminders, sound: $sound, vibrate: $vibrate, snoozeEnabled: $snoozeEnabled, snoozeDurations: $snoozeDurations)';
   }
 
   @override
@@ -188,13 +228,23 @@ class _$NotificationSettingsImpl implements _NotificationSettings {
             const DeepCollectionEquality()
                 .equals(other._reminders, _reminders) &&
             (identical(other.sound, sound) || other.sound == sound) &&
-            (identical(other.vibrate, vibrate) || other.vibrate == vibrate));
+            (identical(other.vibrate, vibrate) || other.vibrate == vibrate) &&
+            (identical(other.snoozeEnabled, snoozeEnabled) ||
+                other.snoozeEnabled == snoozeEnabled) &&
+            const DeepCollectionEquality()
+                .equals(other._snoozeDurations, _snoozeDurations));
   }
 
   @JsonKey(includeFromJson: false, includeToJson: false)
   @override
-  int get hashCode => Object.hash(runtimeType, enabled,
-      const DeepCollectionEquality().hash(_reminders), sound, vibrate);
+  int get hashCode => Object.hash(
+      runtimeType,
+      enabled,
+      const DeepCollectionEquality().hash(_reminders),
+      sound,
+      vibrate,
+      snoozeEnabled,
+      const DeepCollectionEquality().hash(_snoozeDurations));
 
   /// Create a copy of NotificationSettings
   /// with the given fields replaced by the non-null parameter values.
@@ -219,7 +269,9 @@ abstract class _NotificationSettings implements NotificationSettings {
       {required final bool enabled,
       required final List<Duration> reminders,
       final NotificationSound sound,
-      final bool vibrate}) = _$NotificationSettingsImpl;
+      final bool vibrate,
+      final bool snoozeEnabled,
+      final List<Duration> snoozeDurations}) = _$NotificationSettingsImpl;
 
   factory _NotificationSettings.fromJson(Map<String, dynamic> json) =
       _$NotificationSettingsImpl.fromJson;
@@ -232,6 +284,10 @@ abstract class _NotificationSettings implements NotificationSettings {
   NotificationSound get sound;
   @override
   bool get vibrate;
+  @override
+  bool get snoozeEnabled;
+  @override
+  List<Duration> get snoozeDurations;
 
   /// Create a copy of NotificationSettings
   /// with the given fields replaced by the non-null parameter values.

@@ -1,3 +1,4 @@
+import 'package:countdown/utils/datetime_converter.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:uuid/uuid.dart';
 
@@ -19,7 +20,7 @@ class CountdownEvent with _$CountdownEvent {
     required String title,
     String? notes,
     String? iconName,
-    required DateTime createdAt,
+    @DateTimeConverter() required DateTime createdAt,
     @Default([]) List<String> tags,
     required EventType type,
     required EventTimingDetails timing,

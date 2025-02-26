@@ -1,6 +1,6 @@
+// lib/infrastructure/dtos/event_dto.dart
 import 'dart:convert';
-
-import '../../domain/models/countdown_event/countdown_event.dart';
+import 'package:countdown/domain/models/countdown_event/countdown_event.dart';
 
 class EventDTO {
   final String id;
@@ -27,15 +27,25 @@ class EventDTO {
     required this.isArchived,
   });
 
-  // From Domain
   factory EventDTO.fromDomain(CountdownEvent event) {
     final map = event.toJson();
+    final dynamic createdAtValue = map['createdAt'];
+    final int timestamp;
+
+    if (createdAtValue is DateTime) {
+      timestamp = createdAtValue.millisecondsSinceEpoch;
+    } else if (createdAtValue is String) {
+      timestamp = DateTime.parse(createdAtValue).millisecondsSinceEpoch;
+    } else {
+      timestamp = DateTime.now().millisecondsSinceEpoch;
+    }
+
     return EventDTO(
       id: map['id'],
       title: map['title'],
       notes: map['notes'],
       iconName: map['iconName'],
-      createdAt: map['createdAt'].millisecondsSinceEpoch,
+      createdAt: timestamp,
       tags: jsonEncode(map['tags']),
       type: map['type'],
       timingJson: jsonEncode(map['timing']),
@@ -60,7 +70,6 @@ class EventDTO {
     });
   }
 
-  // From Database Map
   factory EventDTO.fromMap(Map<String, dynamic> map) {
     return EventDTO(
       id: map['id'],
@@ -76,7 +85,6 @@ class EventDTO {
     );
   }
 
-  // To Database Map
   Map<String, dynamic> toMap() {
     return {
       'id': id,
