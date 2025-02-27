@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:math' as math;
 import 'package:countdown/domain/models/countdown_calculator/countdown_calculator.dart';
 import 'package:countdown/domain/models/countdown_event/countdown_event.dart';
 import 'package:flutter/material.dart';
@@ -10,7 +11,7 @@ class CountdownDisplay extends StatefulWidget {
   const CountdownDisplay({
     super.key,
     required this.event,
-    this.displayStyle = CountdownDisplayStyle.compact,
+    this.displayStyle = CountdownDisplayStyle.circular,
   });
 
   @override
@@ -51,6 +52,7 @@ class _CountdownDisplayState extends State<CountdownDisplay> {
       CountdownDisplayStyle.detailed => _buildDetailedDisplay(context),
       CountdownDisplayStyle.fullscreen => _buildFullscreenDisplay(context),
       CountdownDisplayStyle.minimal => _buildMinimalDisplay(context),
+      CountdownDisplayStyle.circular => _buildCircularDisplay(context),
     };
   }
 
@@ -166,6 +168,119 @@ class _CountdownDisplayState extends State<CountdownDisplay> {
     );
   }
 
+  Widget _buildCircularDisplay(BuildContext context) {
+    final colorScheme = Theme.of(context).colorScheme;
+    final textTheme = Theme.of(context).textTheme;
+    final size = MediaQuery.of(context).size.width * 0.8;
+
+    return Container(
+      width: size,
+      height: size,
+      child: Stack(
+        alignment: Alignment.center,
+        children: [
+          // Days circle (outermost)
+          _buildCircularUnit(
+            context,
+            size: size,
+            value: _timeRemaining.days,
+            maxValue: 365, // Max days to show full circle
+            color: colorScheme.primary,
+            strokeWidth: 20,
+          ),
+
+          // Hours circle
+          _buildCircularUnit(
+            context,
+            size: size - 50,
+            value: _timeRemaining.hours,
+            maxValue: 24,
+            color: colorScheme.secondary,
+            strokeWidth: 20,
+          ),
+
+          // Minutes circle
+          _buildCircularUnit(
+            context,
+            size: size - 100,
+            value: _timeRemaining.minutes,
+            maxValue: 60,
+            color: colorScheme.tertiary,
+            strokeWidth: 20,
+          ),
+
+          // Seconds circle (innermost)
+          _buildCircularUnit(
+            context,
+            size: size - 150,
+            value: _timeRemaining.seconds,
+            maxValue: 60,
+            color: colorScheme.error,
+            strokeWidth: 20,
+          ),
+
+          // Center text display
+          Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Text(
+                widget.event.title,
+                style: textTheme.titleMedium,
+                textAlign: TextAlign.center,
+              ),
+              const SizedBox(height: 8),
+              Text(
+                _timeRemaining.formatted,
+                style: textTheme.bodyLarge?.copyWith(
+                  fontWeight: FontWeight.bold,
+                ),
+                textAlign: TextAlign.center,
+              ),
+            ],
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildCircularUnit(
+    BuildContext context, {
+    required double size,
+    required int value,
+    required int maxValue,
+    required Color color,
+    required double strokeWidth,
+  }) {
+    return Container(
+      width: size,
+      height: size,
+      child: Stack(
+        alignment: Alignment.center,
+        children: [
+          // Background circle
+          Container(
+            width: size,
+            height: size,
+            decoration: BoxDecoration(
+              shape: BoxShape.circle,
+              color: color.withOpacity(0.1),
+            ),
+          ),
+
+          // Progress circle
+          CustomPaint(
+            size: Size(size, size),
+            painter: CircleProgressPainter(
+              progress: value / maxValue.toDouble(),
+              progressColor: color,
+              strokeWidth: strokeWidth,
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
   Widget _buildTimeUnit(BuildContext context, int value, String label) {
     return Column(
       children: [
@@ -248,4 +363,43 @@ enum CountdownDisplayStyle {
   compact, // Time with a small container
   detailed, // Title and time with more info
   fullscreen, // Large display for full-screen view
+  circular, // Circular progress indicator
+}
+
+class CircleProgressPainter extends CustomPainter {
+  final double progress;
+  final Color progressColor;
+  final double strokeWidth;
+
+  CircleProgressPainter({
+    required this.progress,
+    required this.progressColor,
+    required this.strokeWidth,
+  });
+
+  @override
+  void paint(Canvas canvas, Size size) {
+    final center = Offset(size.width / 2, size.height / 2);
+    final radius = (size.width - strokeWidth) / 2;
+
+    // Draw progress arc
+    final progressPaint = Paint()
+      ..color = progressColor
+      ..style = PaintingStyle.stroke
+      ..strokeWidth = strokeWidth
+      ..strokeCap = StrokeCap.round;
+
+    canvas.drawArc(
+      Rect.fromCircle(center: center, radius: radius),
+      -math.pi / 2, // Start at the top
+      2 * math.pi * progress, // Arc angle
+      false,
+      progressPaint,
+    );
+  }
+
+  @override
+  bool shouldRepaint(CustomPainter oldDelegate) {
+    return true;
+  }
 }

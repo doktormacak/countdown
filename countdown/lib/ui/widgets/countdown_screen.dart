@@ -115,7 +115,7 @@ class Countdown extends StatelessWidget {
           child: SafeArea(
             child: CountdownDisplay(
               event: event,
-              displayStyle: CountdownDisplayStyle.fullscreen,
+              displayStyle: CountdownDisplayStyle.circular,
             ),
           ),
         ),
