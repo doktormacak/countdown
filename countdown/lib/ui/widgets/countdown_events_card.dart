@@ -1,6 +1,6 @@
 import 'package:countdown/domain/models/countdown_event/countdown_event.dart';
 import 'package:countdown/domain/models/event_timing_details/event_timing_details.dart';
-import 'package:countdown/ui/view_model/countdown_event_view_model.dart';
+import 'package:countdown/ui/view_model/countdown_events/countdown_event_view_model.dart';
 import 'package:countdown/ui/widgets/countdown_event_form.dart';
 import 'package:countdown/ui/widgets/countdown_screen.dart';
 import 'package:flutter/material.dart';

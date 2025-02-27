@@ -1,31 +1,35 @@
 import 'package:countdown/data/services/logger_service.dart';
-import 'package:countdown/ui/view_model/countdown_event_view_model.dart';
+import 'package:countdown/ui/view_model/countdown_events/countdown_event_view_model.dart';
 import 'package:countdown/ui/widgets/countdown_event_form.dart';
 import 'package:countdown/ui/widgets/countdown_events_list.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 class EventListScreen extends ConsumerWidget {
-  const EventListScreen({super.key});
+  const EventListScreen({super.key, this.showAppBar = true});
+
+  final bool showAppBar;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final eventsAsync = ref.watch(countdownEventViewModelProvider);
 
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Countdown Events'),
-        actions: [
-          IconButton(
-            icon: const Icon(Icons.add),
-            onPressed: () {
-              Navigator.of(context).push(ModalBottomSheetRoute(
-                  builder: (context) => const EventFormBottomSheet(),
-                  isScrollControlled: true));
-            },
-          ),
-        ],
-      ),
+      appBar: showAppBar
+          ? AppBar(
+              title: const Text('Countdown Events'),
+              actions: [
+                IconButton(
+                  icon: const Icon(Icons.add),
+                  onPressed: () {
+                    Navigator.of(context).push(ModalBottomSheetRoute(
+                        builder: (context) => const EventFormBottomSheet(),
+                        isScrollControlled: true));
+                  },
+                ),
+              ],
+            )
+          : null,
       body: eventsAsync.when(
         data: (events) => EventList(events: events),
         error: (error, stackTrace) =>

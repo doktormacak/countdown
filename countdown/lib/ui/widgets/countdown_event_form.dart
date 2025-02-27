@@ -3,7 +3,7 @@ import 'package:countdown/domain/models/countdown_event/countdown_event.dart';
 import 'package:countdown/domain/models/event_timing_details/event_timing_details.dart';
 import 'package:countdown/domain/models/notification_settings/notification_settings.dart';
 import 'package:countdown/domain/models/reccurence_pattern/reccurence_pattern.dart';
-import 'package:countdown/ui/view_model/countdown_event_view_model.dart';
+import 'package:countdown/ui/view_model/countdown_events/countdown_event_view_model.dart';
 import 'package:countdown/ui/widgets/notifications_settings_form.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';

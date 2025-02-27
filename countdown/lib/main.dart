@@ -1,5 +1,7 @@
 import 'package:countdown/data/services/notifications_manager.dart';
+import 'package:countdown/ui/view_model/theme/theme_view_model.dart';
 import 'package:countdown/ui/widgets/countdown_events_screen.dart';
+import 'package:countdown/ui/widgets/navigation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -18,8 +20,10 @@ class CountdownEventsApp extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     ref.watch(notificationManagerProvider);
+    final themeMode = ref.watch(themeViewModelProvider);
+
     return MaterialApp(
-      home: const CountdownEventsScreen(),
+      home: const Navigation(),
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
@@ -31,7 +35,7 @@ class CountdownEventsApp extends ConsumerWidget {
           brightness: Brightness.dark,
         ),
       ),
-      themeMode: ThemeMode.system,
+      themeMode: themeMode.valueOrNull,
     );
   }
 }

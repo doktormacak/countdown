@@ -1,28 +1,27 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'countdown_event_view_model.dart';
+part of 'shared_preferences.dart';
 
 // **************************************************************************
 // RiverpodGenerator
 // **************************************************************************
 
-String _$countdownEventViewModelHash() =>
-    r'8f2aca4b18eb8ec5346deb4aff21740a816acc3e';
+String _$sharedPreferencesHash() => r'd22b545aefe95500327f9dce52c645d746349271';
 
-/// See also [CountdownEventViewModel].
-@ProviderFor(CountdownEventViewModel)
-final countdownEventViewModelProvider = AutoDisposeAsyncNotifierProvider<
-    CountdownEventViewModel, List<CountdownEvent>>.internal(
-  CountdownEventViewModel.new,
-  name: r'countdownEventViewModelProvider',
+/// See also [sharedPreferences].
+@ProviderFor(sharedPreferences)
+final sharedPreferencesProvider = FutureProvider<SharedPreferences>.internal(
+  sharedPreferences,
+  name: r'sharedPreferencesProvider',
   debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
       ? null
-      : _$countdownEventViewModelHash,
+      : _$sharedPreferencesHash,
   dependencies: null,
   allTransitiveDependencies: null,
 );
 
-typedef _$CountdownEventViewModel
-    = AutoDisposeAsyncNotifier<List<CountdownEvent>>;
+@Deprecated('Will be removed in 3.0. Use Ref instead')
+// ignore: unused_element
+typedef SharedPreferencesRef = FutureProviderRef<SharedPreferences>;
 // ignore_for_file: type=lint
 // ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member, deprecated_member_use_from_same_package

@@ -1,3 +1,4 @@
+import 'package:countdown/data/services/logger_service.dart';
 import 'package:countdown/domain/models/countdown_event/countdown_event.dart';
 import 'package:countdown/domain/models/event_timing_details/event_timing_details.dart';
 import 'package:countdown/domain/models/reccurence_pattern/reccurence_pattern.dart';
@@ -23,6 +24,8 @@ class _CountdownScreenState extends ConsumerState<CountdownScreen> {
 
   @override
   Widget build(BuildContext context) {
+    ref.read(loggerProvider).info(
+        "${widget.event.timing.map(oneTime: (oneTIme) => oneTIme.timeZone, recurring: (recurring) => recurring.daysOfWeek)}");
     return AnnotatedRegion<SystemUiOverlayStyle>(
       value: _isFullscreen
           ? SystemUiOverlayStyle.light.copyWith(
