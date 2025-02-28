@@ -52,7 +52,8 @@ class _CountdownDisplayState extends State<CountdownDisplay> {
       CountdownDisplayStyle.detailed => _buildDetailedDisplay(context),
       CountdownDisplayStyle.fullscreen => _buildFullscreenDisplay(context),
       CountdownDisplayStyle.minimal => _buildMinimalDisplay(context),
-      CountdownDisplayStyle.circular => _buildCircularDisplay(context),
+      CountdownDisplayStyle.circular =>
+        CircularDisplay(timeRemaining: _timeRemaining, event: widget.event),
     };
   }
 
@@ -168,119 +169,6 @@ class _CountdownDisplayState extends State<CountdownDisplay> {
     );
   }
 
-  Widget _buildCircularDisplay(BuildContext context) {
-    final colorScheme = Theme.of(context).colorScheme;
-    final textTheme = Theme.of(context).textTheme;
-    final size = MediaQuery.of(context).size.width * 0.8;
-
-    return Container(
-      width: size,
-      height: size,
-      child: Stack(
-        alignment: Alignment.center,
-        children: [
-          // Days circle (outermost)
-          _buildCircularUnit(
-            context,
-            size: size,
-            value: _timeRemaining.days,
-            maxValue: 365, // Max days to show full circle
-            color: colorScheme.primary,
-            strokeWidth: 20,
-          ),
-
-          // Hours circle
-          _buildCircularUnit(
-            context,
-            size: size - 50,
-            value: _timeRemaining.hours,
-            maxValue: 24,
-            color: colorScheme.secondary,
-            strokeWidth: 20,
-          ),
-
-          // Minutes circle
-          _buildCircularUnit(
-            context,
-            size: size - 100,
-            value: _timeRemaining.minutes,
-            maxValue: 60,
-            color: colorScheme.tertiary,
-            strokeWidth: 20,
-          ),
-
-          // Seconds circle (innermost)
-          _buildCircularUnit(
-            context,
-            size: size - 150,
-            value: _timeRemaining.seconds,
-            maxValue: 60,
-            color: colorScheme.error,
-            strokeWidth: 20,
-          ),
-
-          // Center text display
-          Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              Text(
-                widget.event.title,
-                style: textTheme.titleMedium,
-                textAlign: TextAlign.center,
-              ),
-              const SizedBox(height: 8),
-              Text(
-                _timeRemaining.formatted,
-                style: textTheme.bodyLarge?.copyWith(
-                  fontWeight: FontWeight.bold,
-                ),
-                textAlign: TextAlign.center,
-              ),
-            ],
-          ),
-        ],
-      ),
-    );
-  }
-
-  Widget _buildCircularUnit(
-    BuildContext context, {
-    required double size,
-    required int value,
-    required int maxValue,
-    required Color color,
-    required double strokeWidth,
-  }) {
-    return Container(
-      width: size,
-      height: size,
-      child: Stack(
-        alignment: Alignment.center,
-        children: [
-          // Background circle
-          Container(
-            width: size,
-            height: size,
-            decoration: BoxDecoration(
-              shape: BoxShape.circle,
-              color: color.withOpacity(0.1),
-            ),
-          ),
-
-          // Progress circle
-          CustomPaint(
-            size: Size(size, size),
-            painter: CircleProgressPainter(
-              progress: value / maxValue.toDouble(),
-              progressColor: color,
-              strokeWidth: strokeWidth,
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-
   Widget _buildTimeUnit(BuildContext context, int value, String label) {
     return Column(
       children: [
@@ -366,6 +254,86 @@ enum CountdownDisplayStyle {
   circular, // Circular progress indicator
 }
 
+class CircularDisplay extends StatelessWidget {
+  const CircularDisplay(
+      {super.key, required this.timeRemaining, required this.event});
+
+  final TimeRemaining timeRemaining;
+  final CountdownEvent event;
+
+  @override
+  Widget build(BuildContext context) {
+    final colorScheme = Theme.of(context).colorScheme;
+    final textTheme = Theme.of(context).textTheme;
+    final size = MediaQuery.of(context).size.width * 0.8;
+
+    return Container(
+      width: size,
+      height: size,
+      child: Stack(
+        alignment: Alignment.center,
+        children: [
+          // Days circle (outermost)
+          CircularUnit(
+            size: size,
+            value: timeRemaining.days,
+            maxValue: 365, // Max days to show full circle
+            color: colorScheme.primary,
+            strokeWidth: 20,
+          ),
+
+          // Hours circle
+          CircularUnit(
+            size: size - 50,
+            value: timeRemaining.hours,
+            maxValue: 24,
+            color: colorScheme.secondary,
+            strokeWidth: 20,
+          ),
+
+          // Minutes circle
+          CircularUnit(
+            size: size - 100,
+            value: timeRemaining.minutes,
+            maxValue: 60,
+            color: colorScheme.tertiary,
+            strokeWidth: 20,
+          ),
+
+          // Seconds circle (innermost)
+          CircularUnit(
+            size: size - 150,
+            value: timeRemaining.seconds,
+            maxValue: 60,
+            color: colorScheme.error,
+            strokeWidth: 20,
+          ),
+
+          // Center text display
+          Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Text(
+                event.title,
+                style: textTheme.titleMedium,
+                textAlign: TextAlign.center,
+              ),
+              const SizedBox(height: 8),
+              Text(
+                timeRemaining.formatted,
+                style: textTheme.bodyLarge?.copyWith(
+                  fontWeight: FontWeight.bold,
+                ),
+                textAlign: TextAlign.center,
+              ),
+            ],
+          ),
+        ],
+      ),
+    );
+  }
+}
+
 class CircleProgressPainter extends CustomPainter {
   final double progress;
   final Color progressColor;
@@ -401,5 +369,119 @@ class CircleProgressPainter extends CustomPainter {
   @override
   bool shouldRepaint(CustomPainter oldDelegate) {
     return true;
+  }
+}
+
+class CircularUnit extends StatefulWidget {
+  const CircularUnit({
+    super.key,
+    required this.size,
+    required this.value,
+    required this.maxValue,
+    required this.color,
+    required this.strokeWidth,
+  });
+
+  final double size;
+  final int value;
+  final int maxValue;
+  final Color color;
+  final double strokeWidth;
+
+  @override
+  State<CircularUnit> createState() => _CircularUnitState();
+}
+
+class _CircularUnitState extends State<CircularUnit>
+    with SingleTickerProviderStateMixin {
+  late AnimationController _controller;
+  late Animation<double> _animation;
+  late double _oldProgress;
+  late double _currentProgress;
+
+  @override
+  void initState() {
+    super.initState();
+    _oldProgress = 0.0;
+    _currentProgress = widget.value / widget.maxValue.toDouble();
+
+    _controller = AnimationController(
+      vsync: this,
+      duration: const Duration(milliseconds: 500),
+    );
+
+    _animation = Tween<double>(
+      begin: _oldProgress,
+      end: _currentProgress,
+    ).animate(CurvedAnimation(
+      parent: _controller,
+      curve: Curves.easeInOut,
+    ));
+
+    _controller.forward();
+  }
+
+  @override
+  void didUpdateWidget(CircularUnit oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    // When the widget updates (new value), animate to the new progress
+    if (oldWidget.value != widget.value) {
+      _oldProgress = _currentProgress;
+      _currentProgress = widget.value / widget.maxValue.toDouble();
+
+      _animation = Tween<double>(
+        begin: _oldProgress,
+        end: _currentProgress,
+      ).animate(CurvedAnimation(
+        parent: _controller,
+        curve: Curves.easeInOut,
+      ));
+
+      _controller.reset();
+      _controller.forward();
+    }
+  }
+
+  @override
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return SizedBox(
+      width: widget.size,
+      height: widget.size,
+      child: Stack(
+        alignment: Alignment.center,
+        children: [
+          // Background circle
+          Container(
+            width: widget.size,
+            height: widget.size,
+            decoration: BoxDecoration(
+              shape: BoxShape.circle,
+              color: widget.color.withOpacity(0.1),
+            ),
+          ),
+
+          // Progress circle with animation
+          AnimatedBuilder(
+            animation: _animation,
+            builder: (context, child) {
+              return CustomPaint(
+                size: Size(widget.size, widget.size),
+                painter: CircleProgressPainter(
+                  progress: _animation.value,
+                  progressColor: widget.color,
+                  strokeWidth: widget.strokeWidth,
+                ),
+              );
+            },
+          ),
+        ],
+      ),
+    );
   }
 }
