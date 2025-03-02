@@ -23,6 +23,9 @@ class _CountdownDisplayState extends State<CountdownDisplay> {
   TimeRemaining _timeRemaining =
       const TimeRemaining(days: 0, hours: 0, minutes: 0, seconds: 0);
 
+  late final TimeRemaining _sinceEventCreated =
+      CountdownCalculator.getTimeRemainingSinceEventCreated(widget.event);
+
   @override
   void initState() {
     super.initState();
@@ -52,8 +55,10 @@ class _CountdownDisplayState extends State<CountdownDisplay> {
       CountdownDisplayStyle.detailed => _buildDetailedDisplay(context),
       CountdownDisplayStyle.fullscreen => _buildFullscreenDisplay(context),
       CountdownDisplayStyle.minimal => _buildMinimalDisplay(context),
-      CountdownDisplayStyle.circular =>
-        CircularDisplay(timeRemaining: _timeRemaining, event: widget.event),
+      CountdownDisplayStyle.circular => CircularDisplay(
+          timeRemaining: _timeRemaining,
+          event: widget.event,
+          sinceEventCreated: _sinceEventCreated),
     };
   }
 
@@ -256,10 +261,14 @@ enum CountdownDisplayStyle {
 
 class CircularDisplay extends StatelessWidget {
   const CircularDisplay(
-      {super.key, required this.timeRemaining, required this.event});
+      {super.key,
+      required this.timeRemaining,
+      required this.event,
+      required this.sinceEventCreated});
 
   final TimeRemaining timeRemaining;
   final CountdownEvent event;
+  final TimeRemaining sinceEventCreated;
 
   @override
   Widget build(BuildContext context) {
@@ -277,7 +286,7 @@ class CircularDisplay extends StatelessWidget {
           CircularUnit(
             size: size,
             value: timeRemaining.days,
-            maxValue: 365, // Max days to show full circle
+            maxValue: sinceEventCreated.days, // Max days to show full circle
             color: colorScheme.primary,
             strokeWidth: 20,
           ),
@@ -286,7 +295,7 @@ class CircularDisplay extends StatelessWidget {
           CircularUnit(
             size: size - 50,
             value: timeRemaining.hours,
-            maxValue: 24,
+            maxValue: sinceEventCreated.hours,
             color: colorScheme.secondary,
             strokeWidth: 20,
           ),
@@ -295,7 +304,7 @@ class CircularDisplay extends StatelessWidget {
           CircularUnit(
             size: size - 100,
             value: timeRemaining.minutes,
-            maxValue: 60,
+            maxValue: sinceEventCreated.minutes,
             color: colorScheme.tertiary,
             strokeWidth: 20,
           ),

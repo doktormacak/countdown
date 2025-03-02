@@ -33,7 +33,8 @@ class EventCard extends ConsumerWidget {
         ),
         trailing: _buildMenuButton(context, ref),
         onTap: () {
-          Navigator.of(context).push(
+          Navigator.push(
+            context,
             MaterialPageRoute(
               builder: (context) => CountdownScreen(event: event),
             ),

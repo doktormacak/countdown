@@ -76,7 +76,7 @@ class _EventFormBottomSheetState extends ConsumerState<EventFormBottomSheet> {
           // Default values for recurring fields in case user switches
           _recurringTime = TimeOfDay.now();
           _recurrenceType = RecurrenceType.daily;
-          _selectedDays = {1, 2, 3, 4, 5}; // Mon-Fri
+          _selectedDays = {1, 2, 3, 4, 5, 6, 7}; // Mon-Fri
 
         case RecurringEventTiming timing:
           _recurringTime = timing.timeOfDay;
@@ -100,7 +100,7 @@ class _EventFormBottomSheetState extends ConsumerState<EventFormBottomSheet> {
 
       _recurringTime = TimeOfDay.now();
       _recurrenceType = RecurrenceType.daily;
-      _selectedDays = {1, 2, 3, 4, 5}; // Mon-Fri
+      _selectedDays = {1, 2, 3, 4, 5, 6, 7}; // Mon-Fri
 
       // Initialize notification settings with defaults
       _notificationSettings = const NotificationSettings(

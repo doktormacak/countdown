@@ -81,6 +81,13 @@ class CountdownCalculator {
     return TimeRemaining.fromDuration(duration);
   }
 
+  static TimeRemaining getTimeRemainingSinceEventCreated(CountdownEvent event) {
+    final eventTime = _getNextOccurrence(event, event.createdAt);
+    final duration = eventTime.difference(event.createdAt);
+
+    return TimeRemaining.fromDuration(duration);
+  }
+
   /// Get the next occurrence of an event based on its timing
   static DateTime _getNextOccurrence(CountdownEvent event, DateTime now) {
     return switch (event.timing) {
